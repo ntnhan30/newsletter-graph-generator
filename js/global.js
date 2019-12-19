@@ -15,4 +15,3 @@ globalColors.addEventListener("change", function(){
 	console.log(globalColors.value)
 });
 
-

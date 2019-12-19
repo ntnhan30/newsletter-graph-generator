@@ -18,3 +18,7 @@ input.text{
 .select{
 	width: 100px;
 }
+
+#rowsInput{
+	width: 200px;
+}
