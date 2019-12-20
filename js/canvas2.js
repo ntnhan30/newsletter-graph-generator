@@ -2,6 +2,7 @@
 /*eslint no-console: ["error", { allow: ["log", "error"] }] */
 
 'use strict';
+import { filterData } from "./data.js";
 
 (function(){
 	
@@ -157,6 +158,30 @@
 
 	
 	/* functions */
+	// update data array from filterData
+	function dataUpdate() {
+		data = [];
+		filterData.map(row => {
+		  data.push({
+			brand: row.Brand,
+			values: [
+			  parseInt(row["BF_1 - Aided brand awareness"].slice(0, -1)),
+			  parseInt(row["BF_2 - Brand consideration"].slice(0, -1)),
+			  parseInt(row["BF_3 - Brand usage"].slice(0, -1)),
+			  parseInt(row["BF_4 - Brand preference"].slice(0, -1)),
+			],
+			variations: [row["AidedAwarenessVariation"], 
+			row["ConsiderationVariation"],
+			row["UsageVariation"],
+			row["PreferenceVariation"],
+		]
+		  });
+		});
+	
+		rows = filterData.length;
+		console.log(data);
+	  }
+
 	function genForm(n){
 		for(var i=1; i < n+1; i++){
 			var thisValue = 'bvalue'+i,
@@ -359,6 +384,7 @@
 	}
 
 	function genCanvas(){
+		dataUpdate();
 		fetchInputs();
 		clearAll();
 		genLabels();

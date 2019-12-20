@@ -7,9 +7,9 @@
 
 // getting input
 let inputValue = [];
- function getInput() {
+function getInput() {
   inputValue = document.getElementById("rowsInput").value.split(",");
-   console.log(inputValue);
+  console.log(inputValue);
 }
 
 // fecth data from google sheet and save to dataJson
@@ -37,7 +37,7 @@ function modifyData() {
   }
   // clean up data, keep only valid rows
   let modifiedData = rows.filter(row => row.Wave);
-  //adding UnaidedAwarenessvAriation and TopOfMindAriation
+  //adding UnaidedAwarenessVariation and TopOfMindVariation
   let previousRow = null;
   modifiedData.map(row => {
     previousRow = modifiedData.filter(
@@ -46,24 +46,40 @@ function modifyData() {
         e.Brand === row.Brand &&
         e.Wave === "W0" + (row.Wave.split("")[2] - 1)
     );
-    row["UnaidedAwarenessvAriation"] = previousRow[0];
-    row["TopOfMindAriation"] = previousRow[0];
+    row["UnaidedAwarenessVariation"] = previousRow[0];
+    row["TopOfMindVariation"] = previousRow[0];
+    row["AidedAwarenessVariation"] = previousRow[0];
+    row["ConsiderationVariation"] = previousRow[0];
+    row["UsageVariation"] = previousRow[0];
+    row["PreferenceVariation"] = previousRow[0];
 
     // console.log("row", row)
     //console.log("previousRow",previousRow[0])
 
-    if (row.UnaidedAwarenessvAriation) {
-      row.UnaidedAwarenessvAriation =
-        parseInt(previousRow[0]["BF_1 - Aided brand awareness"].slice(0, -1)) -
-        parseInt(row["BF_1 - Aided brand awareness"].slice(0, -1));
-      row.TopOfMindAriation =
+    if (row.UnaidedAwarenessVariation) {
+      row.UnaidedAwarenessVariation =
+        parseInt(previousRow[0]["UA - Unaided Awareness"].slice(0, -1)) -
+        parseInt(row["UA - Unaided Awareness"].slice(0, -1));
+      row.TopOfMindVariation =
         parseInt(previousRow[0]["ToM - Top of Mind"].slice(0, -1)) -
         parseInt(row["ToM - Top of Mind"].slice(0, -1));
+      row.AidedAwarenessVariation =
+        parseInt(previousRow[0]["BF_1 - Aided brand awareness"].slice(0, -1)) -
+        parseInt(row["BF_1 - Aided brand awareness"].slice(0, -1));
+        row.ConsiderationVariation =
+        parseInt(previousRow[0]["BF_2 - Brand consideration"].slice(0, -1)) -
+        parseInt(row["BF_2 - Brand consideration"].slice(0, -1));
+        row.UsageVariation =
+        parseInt(previousRow[0]["BF_3 - Brand usage"].slice(0, -1)) -
+        parseInt(row["BF_3 - Brand usage"].slice(0, -1));
+        row.PreferenceVariation =
+        parseInt(previousRow[0]["BF_4 - Brand preference"].slice(0, -1)) -
+        parseInt(row["BF_4 - Brand preference"].slice(0, -1));
     }
   });
   console.log(modifiedData);
   // filter data based on user input
-  filterData=[]
+  filterData = [];
   inputValue.map(value => {
     modifiedData.map(row => {
       if (row["Row#"] === value) {
@@ -81,4 +97,4 @@ document.getElementById("getDataButton").addEventListener("click", function() {
   modifyData();
 });
 
-export {filterData}
+export { filterData };
