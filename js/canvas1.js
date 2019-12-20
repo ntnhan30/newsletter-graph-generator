@@ -2,7 +2,7 @@
 /*eslint no-console: ["error", { allow: ["log", "error"] }] */
 
 "use strict";
-
+import { filterData } from "./data.js";
 (function() {
   /* canvas setup */
   var c = document.getElementById("canvas1");
@@ -70,6 +70,24 @@
     ];
 
   /* functions */
+  // update data array from filterData
+  function dataUpdate() {
+    data = [];
+    filterData.map(row => {
+      data.push({
+        brand: row.Brand,
+        values: [
+          parseInt(row["UA - Unaided Awareness"].slice(0, -1)),
+          parseInt(row["ToM - Top of Mind"].slice(0, -1))
+        ],
+        variations: [row["UnaidedAwarenessvAriation"], row["TopOfMindAriation"]]
+      });
+    });
+
+    rows = filterData.length;
+    console.log(data);
+  }
+
   function genForm(n) {
     for (var i = 1; i < n + 1; i++) {
       var thisValue = "cvalue" + i,
@@ -291,11 +309,9 @@
     ctx.fillStyle = "white";
     ctx.fill();
   }
-  
- 
-  
 
   function genCanvas() {
+    dataUpdate();
     fetchInputs();
     clearAll();
     genLabels();
@@ -307,6 +323,6 @@
   document.getElementById("generateBtn3").addEventListener("click", function() {
     genCanvas();
   });
- 
+
   genCanvas();
 })();

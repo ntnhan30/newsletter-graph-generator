@@ -7,9 +7,9 @@
 
 // getting input
 let inputValue = [];
-function getInput() {
+ function getInput() {
   inputValue = document.getElementById("rowsInput").value.split(",");
-  // console.log(inputValue);
+   console.log(inputValue);
 }
 
 // fecth data from google sheet and save to dataJson
@@ -63,6 +63,7 @@ function modifyData() {
   });
   console.log(modifiedData);
   // filter data based on user input
+  filterData=[]
   inputValue.map(value => {
     modifiedData.map(row => {
       if (row["Row#"] === value) {
@@ -79,3 +80,5 @@ document.getElementById("getDataButton").addEventListener("click", function() {
   getInput();
   modifyData();
 });
+
+export {filterData}
