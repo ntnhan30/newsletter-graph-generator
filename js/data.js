@@ -75,6 +75,40 @@ function modifyData() {
         row.PreferenceVariation =
         parseInt(previousRow[0]["BF_4 - Brand preference"].slice(0, -1)) -
         parseInt(row["BF_4 - Brand preference"].slice(0, -1));
+        row.PreviousTop1Reliable = parseInt(previousRow[0]["Top1_IDS 1 - … reliable"].slice(0, -1))
+        row.PreviousTop1Discounts = parseInt(previousRow[0]["Top1_IDS 2 - … deals_discounts"].slice(0, -1))
+        row.PreviousTop1Service = parseInt(previousRow[0]["Top1_IDS 3 - … best customer service"].slice(0, -1))
+        row.PreviousTop1Variety = parseInt(previousRow[0]["Top1_IDS 4 - … big variety"].slice(0, -1))
+        row.PreviousTop1EasyToUse = parseInt(previousRow[0]["Top1_IDS 5 - … easy to use"].slice(0, -1))
+        row.PreviousTop1Payment = parseInt(previousRow[0]["Top1_IDS 6 - … convenient payment"].slice(0, -1))
+        row.PreviousTop1Delivery = parseInt(previousRow[0]["Top1_IDS 7 - … fastest delivery"].slice(0, -1))
+        row.PreviousTop1Restaurants = parseInt(previousRow[0]["Top1_IDS 8 - … good quality restaurants"].slice(0, -1))
+        row.PreviousTop1Trust = parseInt(previousRow[0]["Top1_IDS 9 - … brand I can trust"].slice(0, -1))
+        row.PreviousTop1FoodChain = parseInt(previousRow[0]["Top1_IDS 11 - … big food chains"].slice(0, -1))
+        row.PreviousTop1Brand = parseInt(previousRow[0]["Top1_IDS 12 - … #1 brand"].slice(0, -1))
+        row.PreviousTop1Time = parseInt(previousRow[0]["Top1_IDS 13 - … time guarantee"].slice(0, -1))
+        row.PreviousTop1HealthyFood = parseInt(previousRow[0]["Top1_IDS 14 - … big variety of healthy food"].slice(0, -1))
+        row.PreviousTop1Price = parseInt(previousRow[0]["Top1_IDS 15 - … best price"].slice(0, -1))
+        row.PreviousTop1LoyalProgramme = parseInt(previousRow[0]["Top1_IDS 16 - … loyalty programme"].slice(0, -1))
+        row.PreviousTop1Delivery30Mins = parseInt(previousRow[0]["Top1_IDS 17 - … 30 minutes delivery"].slice(0, -1))
+
+        row.PreviousTop3Reliable = parseInt(previousRow[0]["Top3_IDS 1 - … reliable"].slice(0, -1))
+        row.PreviousTop3Discounts = parseInt(previousRow[0]["Top3_IDS 2 - … deals_discounts"].slice(0, -1))
+        row.PreviousTop3Service = parseInt(previousRow[0]["Top3_IDS 3 - … best customer service"].slice(0, -1))
+        row.PreviousTop3Variety = parseInt(previousRow[0]["Top3_IDS 4 - … big variety"].slice(0, -1))
+        row.PreviousTop3EasyToUse = parseInt(previousRow[0]["Top3_IDS 5 - … easy to use"].slice(0, -1))
+        row.PreviousTop3Payment = parseInt(previousRow[0]["Top3_IDS 6 - … convenient payment"].slice(0, -1))
+        row.PreviousTop3Delivery = parseInt(previousRow[0]["Top3_IDS 7 - … fastest delivery"].slice(0, -1))
+        row.PreviousTop3Restaurants = parseInt(previousRow[0]["Top3_IDS 8 - … good quality restaurants"].slice(0, -1))
+        row.PreviousTop3Trust = parseInt(previousRow[0]["Top3_IDS 9 - … brand I can trust"].slice(0, -1))
+        row.PreviousTop3FoodChain = parseInt(previousRow[0]["Top3_IDS 11 - … big food chains"].slice(0, -1))
+        row.PreviousTop3Brand = parseInt(previousRow[0]["Top3_IDS 12 - … #1 brand"].slice(0, -1))
+        row.PreviousTop3Time = parseInt(previousRow[0]["Top3_IDS 13 - … time guarantee"].slice(0, -1))
+        row.PreviousTop3HealthyFood = parseInt(previousRow[0]["Top3_IDS 14 - … big variety of healthy food"].slice(0, -1))
+        row.PreviousTop3Price = parseInt(previousRow[0]["Top3_IDS 15 - … best price"].slice(0, -1))
+        row.PreviousTop3LoyalProgramme = parseInt(previousRow[0]["Top3_IDS 16 - … loyalty programme"].slice(0, -1))
+        row.PreviousTop3Delivery30Mins = parseInt(previousRow[0]["Top3_IDS 17 - … 30 minutes delivery"].slice(0, -1))
+        
     }
   });
   console.log(modifiedData);

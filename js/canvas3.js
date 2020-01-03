@@ -2,6 +2,7 @@
 /*eslint no-console: ["error", { allow: ["log", "error"] }] */
 
 'use strict';
+import { filterData } from "./data.js";
 
 (function(){
 
@@ -81,7 +82,70 @@
 			},
 		];
 
+// update data array from filterData
+function dataUpdate() {
+	data = [{ 
+		text : 'be easy to use when placing an order',
+		value1 :parseInt(filterData[0]["Top1_IDS 5 - … easy to use"].slice(0, -1)) ,
+		value2 : filterData[0]["PreviousTop1EasyToUse"],
+		value3 : parseInt(filterData[0]["Top3_IDS 5 - … easy to use"].slice(0, -1)),
+		value4 : filterData[0]["PreviousTop3EasyToUse"],
+	},
+	{ 
+		text : 'offer a big variety',
+		value1 : parseInt(filterData[0]["Top1_IDS 4 - … big variety"].slice(0, -1)),
+		value2 : filterData[0]["PreviousTop1Variety"],
+		value3 : parseInt(filterData[0]["Top3_IDS 4 - … big variety"].slice(0, -1)),
+		value4 : filterData[0]["PreviousTop3Variety"],
+	},
+	{ 
+		text : 'offer the best price',
+		value1 : parseInt(filterData[0]["Top1_IDS 15 - … best price"].slice(0, -1)),
+		value2 : filterData[0]["PreviousTop1Price"],
+		value3 : parseInt(filterData[0]["Top3_IDS 15 - … best price"].slice(0, -1)),
+		value4 : filterData[0]["PreviousTop3Price"],
+	},
+	{
+		text : 'be reliable (I know what I will get)',
+		value1 : parseInt(filterData[0]["Top1_IDS 1 - … reliable"].slice(0, -1)),
+		value2 : filterData[0]["PreviousTop1Reliable"],
+		value3 : parseInt(filterData[0]["Top3_IDS 1 - … reliable"].slice(0, -1)),
+		value4 : filterData[0]["PreviousTop3Reliable"],
+	},	
+	{
+		text : 'offer good quality restaurants',
+		value1 : parseInt(filterData[0]["Top1_IDS 8 - … good quality restaurants"].slice(0, -1)),
+		value2 : filterData[0]["PreviousTop1Restaurants"],
+		value3 : parseInt(filterData[0]["Top3_IDS 8 - … good quality restaurants"].slice(0, -1)),
+		value4 : filterData[0]["PreviousTop3Restaurants"],
+	},	
+	{
+		text : 'have delivery time guarantee',
+		value1 : parseInt(filterData[0]["Top1_IDS 13 - … time guarantee"].slice(0, -1)),
+		value2 : filterData[0]["PreviousTop1Time"],
+		value3 : parseInt(filterData[0]["Top3_IDS 13 - … time guarantee"].slice(0, -1)),
+		value4 : filterData[0]["PreviousTop3Time"],
+	},
+	{
+		text : 'offer the best customer service',
+		value1 : parseInt(filterData[0]["Top1_IDS 3 - … best customer service"].slice(0, -1)),
+		value2 : filterData[0]["PreviousTop1Service"],
+		value3 : parseInt(filterData[0]["Top3_IDS 3 - … best customer service"].slice(0, -1)),
+		value4 : filterData[0]["PreviousTop3Service"],
+	},
+	{
+		text : 'offer the best deals and discounts',
+		value1 : parseInt(filterData[0]["Top1_IDS 2 - … deals_discounts"].slice(0, -1)),
+		value2 : filterData[0]["PreviousTop1Discounts"],
+		value3 : parseInt(filterData[0]["Top3_IDS 2 - … deals_discounts"].slice(0, -1)),
+		value4 : filterData[0]["PreviousTop3Discounts"],
+	},];
+	
 
+	//rows = filterData.length;
+	console.log("filter Data",filterData[0]);
+	console.log(" Data",data);
+  }
 	/********** functions ***********/
 	
 	function genForm(n){
@@ -257,7 +321,7 @@
 	}
 
 	function genCanvas(){
-		
+		dataUpdate(),
 		fetchInputs();
 		clearAll(),
 		genLabels(),
