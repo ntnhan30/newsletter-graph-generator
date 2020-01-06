@@ -1,59 +1,74 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Research NL Graph generator</title>
-<link href="css/standard.css" rel="stylesheet">
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Research NL Graph generator</title>
+    <link href="css/standard.css" rel="stylesheet" />
+  </head>
 
-<body>
-<div id="wrapper">
-	<!--global part-->
-	<div id="global">
-		Color scheme<br/>
-	<select multiple class="select" id="globalbrand">
-	  <option value="pink">Pandora Pink</option>
-	  <option value="red">Generic Red</option>
-	  <option value="orange">Talabat Orange</option>
-	</select>
-	</div>
-	<br/>
-	
-	<!-- part 3 -->
-	<br>
-	<br>
-	<h3>Please enter the rows sperated by ","</h3>
+  <body>
+    <div id="wrapper">
+      <!--global part-->
+      <div id="global">
+        Color scheme<br />
+        <select multiple class="select" id="globalbrand">
+          <option value="pink">Pandora Pink</option>
+          <option value="red">Generic Red</option>
+          <option value="orange">Talabat Orange</option>
+        </select>
+      </div>
+      <br />
 
-<input type="text" id="rowsInput" >
+      <!-- part 3 -->
+      <br />
+      <br />
+      <h3>Please enter the rows sperated by ","</h3>
 
-<button id="getDataButton">Get Data</button><br><br>
+      <input type="text" id="rowsInput" />
 
-	<div id="form3" class="form3">
-	</div>
-	<button id="generateBtn3">GENERATE</button><br><br>
-	<canvas id="canvas1" class="canvas1" width="640" height="300" style="border:1px solid #000000; background-color: white"></canvas>
-	
-	<!-- part 2 -->
-	<br>
-	<br>
-	<div id="form2" class="form2">
-	</div>
-	<button id="generateBtn2">GENERATE</button><br><br>
-	<canvas id="canvas2" class="canvas2" width="640" height="400" style="border:1px solid #000000; background-color: white"></canvas>
+      <button id="getDataButton">Get Data</button><br /><br />
 
-		<!-- part 1 -->
-	<div id="form1" class="form1">
-	</div>
-	<button id="generateBtn">GENERATE</button>
-	<br><br>
-	
-	<canvas id="canvas3" class="canvas3" width="640" height="300" style="border:1px solid #000000; background-color: white"></canvas>
-</div>
-</body>
-<!-- scripts -->
-	<script type="text/javascript" src="js/global.js"></script>
-	<script type="module" src="js/canvas1.js"></script>
-	<script type="module" src="js/canvas2.js"></script>
-	<script type="module" src="js/canvas3.js"></script>
-	<script type="module" src="js/data.js"></script>
+      <div id="form3" class="form3"></div>
+      <button id="generateBtn3">GENERATE</button><br /><br />
+      <canvas
+        id="canvas1"
+        class="canvas1"
+        width="640"
+        height="300"
+        style="border:1px solid #000000; background-color: white"
+      ></canvas>
+
+      <!-- part 2 -->
+      <br />
+      <br />
+      <div id="form2" class="form2"></div>
+      <button id="generateBtn2">GENERATE</button><br /><br />
+      <canvas
+        id="canvas2"
+        class="canvas2"
+        width="640"
+        height="400"
+        style="border:1px solid #000000; background-color: white"
+      ></canvas>
+
+      <!-- part 1 -->
+      <div id="form1" class="form1"></div>
+      <button id="generateBtn">GENERATE</button>
+      <br /><br />
+
+      <canvas
+        id="canvas3"
+        class="canvas3"
+        width="640"
+        height="300"
+        style="border:1px solid #000000; background-color: white"
+      ></canvas>
+    </div>
+  </body>
+  <!-- scripts -->
+  <script type="text/javascript" src="js/global.js"></script>
+  <script type="module" src="js/canvas1.js"></script>
+  <script type="module" src="js/canvas2.js"></script>
+  <script type="module" src="js/canvas3.js"></script>
+  <script type="module" src="js/data.js"></script>
 </html>

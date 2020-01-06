@@ -1,339 +1,410 @@
 // JavaScript Document
 /*eslint no-console: ["error", { allow: ["log", "error"] }] */
 
-'use strict';
+"use strict";
 import { filterData } from "./data.js";
 
-(function(){
+(function() {
+  /* canvas setup */
+  var c = document.getElementById("canvas3");
+  var ctx = c.getContext("2d");
 
-	/* canvas setup */
-	var c = document.getElementById('canvas3');
-	var ctx = c.getContext('2d');
+  /*variables and parameters */
+  var labels = {
+      label1: "IDEAL",
+      label2: "TOP 3"
+    },
+    rows = 8,
+    color = {
+      primary: "#54BAD1",
+      secondary: "#d70f64"
+    },
+    posX = 280,
+    posY = 5,
+    spaceY = 10,
+    data = [
+      {
+        text: "be easy to use when placing an order",
+        value1: getRandomInt(100),
+        value2: getRandomInt(100),
+        value3: getRandomInt(100),
+        value4: getRandomInt(100)
+      },
+      {
+        text: "offer a big variety",
+        value1: getRandomInt(100),
+        value2: getRandomInt(100),
+        value3: getRandomInt(100),
+        value4: getRandomInt(100)
+      },
+      {
+        text: "offer the best price",
+        value1: getRandomInt(100),
+        value2: getRandomInt(100),
+        value3: getRandomInt(100),
+        value4: getRandomInt(100)
+      },
+      {
+        text: "be reliable (I know what I will get)",
+        value1: getRandomInt(100),
+        value2: getRandomInt(100),
+        value3: getRandomInt(100),
+        value4: getRandomInt(100)
+      },
+      {
+        text: "offer good quality restaurants",
+        value1: getRandomInt(100),
+        value2: getRandomInt(100),
+        value3: getRandomInt(100),
+        value4: getRandomInt(100)
+      },
+      {
+        text: "have delivery time guarantee",
+        value1: getRandomInt(100),
+        value2: getRandomInt(100),
+        value3: getRandomInt(100),
+        value4: getRandomInt(100)
+      },
+      {
+        text: "offer the best customer service",
+        value1: getRandomInt(100),
+        value2: getRandomInt(100),
+        value3: getRandomInt(100),
+        value4: getRandomInt(100)
+      },
+      {
+        text: "offer the best deals and discounts",
+        value1: getRandomInt(100),
+        value2: getRandomInt(100),
+        value3: getRandomInt(100),
+        value4: getRandomInt(100)
+      }
+    ];
 
-	/*variables and parameters */
-	var labels = {
-			label1 : 'IDEAL',
-			label2 : 'TOP 3',
-		},
-		rows = 8,
-		color = {
-			primary: '#54BAD1',
-			secondary: '#d70f64'
-		},
-		posX = 280,
-		posY = 5,
-		spaceY = 10,
-		data = [
-			{ 
-				text : 'be easy to use when placing an order',
-				value1 : getRandomInt(100),
-				value2 : getRandomInt(100),
-				value3 : getRandomInt(100),
-				value4 : getRandomInt(100),
-			},
-			{ 
-				text : 'offer a big variety',
-				value1 : getRandomInt(100),
-				value2 : getRandomInt(100),
-				value3 : getRandomInt(100),
-				value4 : getRandomInt(100),
-			},
-			{ 
-				text : 'offer the best price',
-				value1 : getRandomInt(100),
-				value2 : getRandomInt(100),
-				value3 : getRandomInt(100),
-				value4 : getRandomInt(100),
-			},
-			{
-				text : 'be reliable (I know what I will get)',
-				value1 : getRandomInt(100),
-				value2 : getRandomInt(100),
-				value3 : getRandomInt(100),
-				value4 : getRandomInt(100),
-			},	
-			{
-				text : 'offer good quality restaurants',
-				value1 : getRandomInt(100),
-				value2 : getRandomInt(100),
-				value3 : getRandomInt(100),
-				value4 : getRandomInt(100),
-			},	
-			{
-				text : 'have delivery time guarantee',
-				value1 : getRandomInt(100),
-				value2 : getRandomInt(100),
-				value3 : getRandomInt(100),
-				value4 : getRandomInt(100),
-			},
-			{
-				text : 'offer the best customer service',
-				value1 : getRandomInt(100),
-				value2 : getRandomInt(100),
-				value3 : getRandomInt(100),
-				value4 : getRandomInt(100),
-			},
-			{
-				text : 'offer the best deals and discounts',
-				value1 : getRandomInt(100),
-				value2 : getRandomInt(100),
-				value3 : getRandomInt(100),
-				value4 : getRandomInt(100),
-			},
-		];
+  // update data array from filterData
+  function dataUpdate() {
+    data = [
+      {
+        text: "be easy to use when placing an order",
+        value1: parseInt(
+          filterData[0]["Top1_IDS 5 - … easy to use"].slice(0, -1)
+        ),
+        value2: filterData[0]["PreviousTop1EasyToUse"]=== undefined?0:filterData[0]["PreviousTop1EasyToUse"],
+        value3: parseInt(
+          filterData[0]["Top3_IDS 5 - … easy to use"].slice(0, -1)
+        ),
+        value4: filterData[0]["PreviousTop3EasyToUse"]=== undefined?0:filterData[0]["PreviousTop3EasyToUse"]
+      },
+      {
+        text: "offer a big variety",
+        value1: parseInt(
+          filterData[0]["Top1_IDS 4 - … big variety"].slice(0, -1)
+        ),
+        value2: filterData[0]["PreviousTop1Variety"]=== undefined?0:filterData[0]["PreviousTop1Variety"],
+        value3: parseInt(
+          filterData[0]["Top3_IDS 4 - … big variety"].slice(0, -1)
+        ),
+        value4: filterData[0]["PreviousTop3Variety"]=== undefined?0:filterData[0]["PreviousTop3Variety"]
+      },
+      {
+        text: "offer the best price",
+        value1: parseInt(
+          filterData[0]["Top1_IDS 15 - … best price"].slice(0, -1)
+        ),
+        value2: filterData[0]["PreviousTop1Price"]=== undefined?0:filterData[0]["PreviousTop1Price"],
+        value3: parseInt(
+          filterData[0]["Top3_IDS 15 - … best price"].slice(0, -1)
+        ),
+        value4: filterData[0]["PreviousTop3Price"]=== undefined?0:filterData[0]["PreviousTop3Price"]
+      },
+      {
+        text: "be reliable (I know what I will get)",
+        value1: parseInt(filterData[0]["Top1_IDS 1 - … reliable"].slice(0, -1)),
+        value2: filterData[0]["PreviousTop1Reliable"]=== undefined?0:filterData[0]["PreviousTop1Reliable"],
+        value3: parseInt(filterData[0]["Top3_IDS 1 - … reliable"].slice(0, -1)),
+        value4: filterData[0]["PreviousTop3Reliable"]=== undefined?0:filterData[0]["PreviousTop3Reliable"]
+      },
+      {
+        text: "offer good quality restaurants",
+        value1: parseInt(
+          filterData[0]["Top1_IDS 8 - … good quality restaurants"].slice(0, -1)
+        ),
+        value2: filterData[0]["PreviousTop1Restaurants"]=== undefined?0:filterData[0]["PreviousTop1Restaurants"],
+        value3: parseInt(
+          filterData[0]["Top3_IDS 8 - … good quality restaurants"].slice(0, -1)
+        ),
+        value4: filterData[0]["PreviousTop3Restaurants"]=== undefined?0:filterData[0]["PreviousTop3Restaurants"]
+      },
+      {
+        text: "have delivery time guarantee",
+        value1: parseInt(
+          filterData[0]["Top1_IDS 13 - … time guarantee"].slice(0, -1)
+        ),
+        value2: filterData[0]["PreviousTop1Time"]=== undefined?0:filterData[0]["PreviousTop1Time"],
+        value3: parseInt(
+          filterData[0]["Top3_IDS 13 - … time guarantee"].slice(0, -1)
+        ),
+        value4: filterData[0]["PreviousTop3Time"]=== undefined?0:filterData[0]["PreviousTop3Time"]
+      },
+      {
+        text: "offer the best customer service",
+        value1: parseInt(
+          filterData[0]["Top1_IDS 3 - … best customer service"].slice(0, -1)
+        ),
+        value2: filterData[0]["PreviousTop1Service"]=== undefined?0:filterData[0]["PreviousTop1Service"],
+        value3: parseInt(
+          filterData[0]["Top3_IDS 3 - … best customer service"].slice(0, -1)
+        ),
+        value4: filterData[0]["PreviousTop3Service"]=== undefined?0:filterData[0]["PreviousTop3Service"]
+      },
+      {
+        text: "offer the best deals and discounts",
+        value1: parseInt(
+          filterData[0]["Top1_IDS 2 - … deals_discounts"].slice(0, -1)
+        ),
+        value2: filterData[0]["PreviousTop1Discounts"]=== undefined?0:filterData[0]["PreviousTop1Discounts"],
+        value3: parseInt(
+          filterData[0]["Top3_IDS 2 - … deals_discounts"].slice(0, -1)
+        ),
+        value4: filterData[0]["PreviousTop3Discounts"]=== undefined?0:filterData[0]["PreviousTop3Discounts"]
+      }
+    ];
 
-// update data array from filterData
-function dataUpdate() {
-	data = [{ 
-		text : 'be easy to use when placing an order',
-		value1 :parseInt(filterData[0]["Top1_IDS 5 - … easy to use"].slice(0, -1)) ,
-		value2 : filterData[0]["PreviousTop1EasyToUse"],
-		value3 : parseInt(filterData[0]["Top3_IDS 5 - … easy to use"].slice(0, -1)),
-		value4 : filterData[0]["PreviousTop3EasyToUse"],
-	},
-	{ 
-		text : 'offer a big variety',
-		value1 : parseInt(filterData[0]["Top1_IDS 4 - … big variety"].slice(0, -1)),
-		value2 : filterData[0]["PreviousTop1Variety"],
-		value3 : parseInt(filterData[0]["Top3_IDS 4 - … big variety"].slice(0, -1)),
-		value4 : filterData[0]["PreviousTop3Variety"],
-	},
-	{ 
-		text : 'offer the best price',
-		value1 : parseInt(filterData[0]["Top1_IDS 15 - … best price"].slice(0, -1)),
-		value2 : filterData[0]["PreviousTop1Price"],
-		value3 : parseInt(filterData[0]["Top3_IDS 15 - … best price"].slice(0, -1)),
-		value4 : filterData[0]["PreviousTop3Price"],
-	},
-	{
-		text : 'be reliable (I know what I will get)',
-		value1 : parseInt(filterData[0]["Top1_IDS 1 - … reliable"].slice(0, -1)),
-		value2 : filterData[0]["PreviousTop1Reliable"],
-		value3 : parseInt(filterData[0]["Top3_IDS 1 - … reliable"].slice(0, -1)),
-		value4 : filterData[0]["PreviousTop3Reliable"],
-	},	
-	{
-		text : 'offer good quality restaurants',
-		value1 : parseInt(filterData[0]["Top1_IDS 8 - … good quality restaurants"].slice(0, -1)),
-		value2 : filterData[0]["PreviousTop1Restaurants"],
-		value3 : parseInt(filterData[0]["Top3_IDS 8 - … good quality restaurants"].slice(0, -1)),
-		value4 : filterData[0]["PreviousTop3Restaurants"],
-	},	
-	{
-		text : 'have delivery time guarantee',
-		value1 : parseInt(filterData[0]["Top1_IDS 13 - … time guarantee"].slice(0, -1)),
-		value2 : filterData[0]["PreviousTop1Time"],
-		value3 : parseInt(filterData[0]["Top3_IDS 13 - … time guarantee"].slice(0, -1)),
-		value4 : filterData[0]["PreviousTop3Time"],
-	},
-	{
-		text : 'offer the best customer service',
-		value1 : parseInt(filterData[0]["Top1_IDS 3 - … best customer service"].slice(0, -1)),
-		value2 : filterData[0]["PreviousTop1Service"],
-		value3 : parseInt(filterData[0]["Top3_IDS 3 - … best customer service"].slice(0, -1)),
-		value4 : filterData[0]["PreviousTop3Service"],
-	},
-	{
-		text : 'offer the best deals and discounts',
-		value1 : parseInt(filterData[0]["Top1_IDS 2 - … deals_discounts"].slice(0, -1)),
-		value2 : filterData[0]["PreviousTop1Discounts"],
-		value3 : parseInt(filterData[0]["Top3_IDS 2 - … deals_discounts"].slice(0, -1)),
-		value4 : filterData[0]["PreviousTop3Discounts"],
-	},];
-	
-
-	//rows = filterData.length;
-	console.log("filter Data",filterData[0]);
-	console.log(" Data",data);
+    console.log("filter Data", filterData[0]);
+    console.log(" Data", data);
   }
-	/********** functions ***********/
-	
-	function genForm(n){
-		for(var i=1; i < n+1; i++){
-			var thisValue = 'value'+i,
-				line = '<div id="line'+i+'">'+
-				'<span class="selector-title">text'+i+': </span>'+
-				'<input type="text'+i+'" name="text'+i+'" id="text'+i+'" class="text"/>'+
-				'<span class="selector-title"> values: </span>'+
-				' 1<input type="text" name="'+thisValue+'1" id="'+thisValue+'1" class="input"/>'+
-				' 2<input type="text" name="'+thisValue+'2" id="'+thisValue+'2" class="input"/>'+
-				' 3<input type="text" name="'+thisValue+'3" id="'+thisValue+'3" class="input"/>'+
-				' 4<input type="text" name="'+thisValue+'4" id="'+thisValue+'4" class="input"/>'+
-				'</div>';
+  /********** functions ***********/
 
-			document.getElementById("form1").insertAdjacentHTML('beforeend', line)
-		}
-	}
+  function genForm(n) {
+    for (var i = 1; i < n + 1; i++) {
+      var thisValue = "value" + i,
+        line =
+          '<div id="line' +
+          i +
+          '">' +
+          '<span class="selector-title">text' +
+          i +
+          ": </span>" +
+          '<input type="text' +
+          i +
+          '" name="text' +
+          i +
+          '" id="text' +
+          i +
+          '" class="text"/>' +
+          '<span class="selector-title"> values: </span>' +
+          ' 1<input type="text" name="' +
+          thisValue +
+          '1" id="' +
+          thisValue +
+          '1" class="input"/>' +
+          ' 2<input type="text" name="' +
+          thisValue +
+          '2" id="' +
+          thisValue +
+          '2" class="input"/>' +
+          ' 3<input type="text" name="' +
+          thisValue +
+          '3" id="' +
+          thisValue +
+          '3" class="input"/>' +
+          ' 4<input type="text" name="' +
+          thisValue +
+          '4" id="' +
+          thisValue +
+          '4" class="input"/>' +
+          "</div>";
 
-	function drawTriangle(x,y,type){
-		switch(type){
-			case 'blue':
-				ctx.beginPath();
-				ctx.moveTo(0+x, 0+y);
-				ctx.lineTo(0+x, 14+y);
-				ctx.lineTo(14+x, 7+y);
-				ctx.closePath();
-				ctx.strokeStyle = '#54BAD1';
-				ctx.stroke();
-				break
-			case 'green':
-				ctx.beginPath();
-				ctx.moveTo(7+x, 0+y);
-				ctx.lineTo(0+x, 14+y);
-				ctx.lineTo(14+x, 14+y);
-				ctx.closePath();
-				ctx.fillStyle = green;
-				ctx.fill();	
-				break
-			case 'red':
-				ctx.beginPath();
-				ctx.moveTo(0+x, 0+y);
-				ctx.lineTo(14+x, 0+y);
-				ctx.lineTo(7+x, 14+y);
-				ctx.closePath();
-				ctx.fillStyle = yellow;
-				ctx.fill();
-				break
-		}
-	} 
+      document.getElementById("form1").insertAdjacentHTML("beforeend", line);
+    }
+  }
 
-	
-	function genLabels(){
-		/*label1*/
-		ctx.beginPath();
-		ctx.rect(posX+30, posY+10, 140, 25);
-		ctx.fillStyle = color.secondary;
-		ctx.fill();
-		
-		/*label2*/
-		ctx.beginPath();
-		ctx.rect(posX+180, posY+10, 140, 25);
-		ctx.fillStyle = color.primary;
-		ctx.fill();
+  function drawTriangle(x, y, type) {
+    switch (type) {
+      case "blue":
+        ctx.beginPath();
+        ctx.moveTo(0 + x, 0 + y);
+        ctx.lineTo(0 + x, 14 + y);
+        ctx.lineTo(14 + x, 7 + y);
+        ctx.closePath();
+        ctx.strokeStyle = "#54BAD1";
+        ctx.stroke();
+        break;
+      case "green":
+        ctx.beginPath();
+        ctx.moveTo(7 + x, 0 + y);
+        ctx.lineTo(0 + x, 14 + y);
+        ctx.lineTo(14 + x, 14 + y);
+        ctx.closePath();
+        ctx.fillStyle = green;
+        ctx.fill();
+        break;
+      case "red":
+        ctx.beginPath();
+        ctx.moveTo(0 + x, 0 + y);
+        ctx.lineTo(14 + x, 0 + y);
+        ctx.lineTo(7 + x, 14 + y);
+        ctx.closePath();
+        ctx.fillStyle = yellow;
+        ctx.fill();
+        break;
+    }
+  }
 
-		/*text1*/
-		ctx.fillStyle = 'white';
-		ctx.textAlign = 'center';
-		ctx.font = '15px Avenir';
-		ctx.fillText(labels.label1, posX+100, posY+28);	
+  function genLabels() {
+    /*label1*/
+    ctx.beginPath();
+    ctx.rect(posX + 30, posY + 10, 140, 25);
+    ctx.fillStyle = color.secondary;
+    ctx.fill();
 
-		/*text2*/
-		ctx.fillStyle = 'black';
-		ctx.textAlign = 'center';
-		ctx.font = '15px Avenir';
-		ctx.fillText(labels.label2,posX+250, posY+28);
-	}
+    /*label2*/
+    ctx.beginPath();
+    ctx.rect(posX + 180, posY + 10, 140, 25);
+    ctx.fillStyle = color.primary;
+    ctx.fill();
 
-	function fetchInputs(){
-			switch(globalColors.value){
-				case 'pink':
-					color.primary = '#54BAD1';
-					color.secondary = '#d70f64';
+    /*text1*/
+    ctx.fillStyle = "white";
+    ctx.textAlign = "center";
+    ctx.font = "15px Avenir";
+    ctx.fillText(labels.label1, posX + 100, posY + 28);
 
-				break
-				case 'red':
-					color.primary = '#83828A';
-					color.secondary = '#D61F26';
-				break
-				case 'orange':
-					color.primary = '#FF6F00';
-					color.secondary = '#141E73';
-				break
-			}
-		
-		for(var i=1; i < rows+1; i++){
-			if(document.getElementById("text"+i).value){
-				data[i-1].text = document.getElementById("text"+i).value;
-			}
-			if(document.getElementById("value"+i+"1").value){
-				data[i-1].value1 = Number(document.getElementById("value"+i+"1").value);
-			}	
-			if(document.getElementById("value"+i+"2").value){
-				data[i-1].value2 = Number(document.getElementById("value"+i+"2").value);
-				
-			}	
-			if(document.getElementById("value"+i+"3").value){
-				data[i-1].value3 = Number(document.getElementById("value"+i+"3").value);
-			}	
-			if(document.getElementById("value"+i+"4").value){
-				data[i-1].value4 = Number(document.getElementById("value"+i+"4").value);
-			}
-		}
-	}
+    /*text2*/
+    ctx.fillStyle = "black";
+    ctx.textAlign = "center";
+    ctx.font = "15px Avenir";
+    ctx.fillText(labels.label2, posX + 250, posY + 28);
+  }
 
-	function genText(){
-		spaceY = 10;
+  function fetchInputs() {
+    switch (globalColors.value) {
+      case "pink":
+        color.primary = "#54BAD1";
+        color.secondary = "#d70f64";
 
-		for(var i = 0; i < data.length; i++ ){
-			spaceY +=30;
-			var line = 20+spaceY;
+        break;
+      case "red":
+        color.primary = "#83828A";
+        color.secondary = "#D61F26";
+        break;
+      case "orange":
+        color.primary = "#FF6F00";
+        color.secondary = "#141E73";
+        break;
+    }
 
-			/*text */
-			ctx.fillStyle = 'black';
-			ctx.font = '14px Avenir';
-			ctx.textAlign = 'right';
-			ctx.fillText(data[i].text, posX, posY+line);
+    for (var i = 1; i < rows + 1; i++) {
+      if (document.getElementById("text" + i).value) {
+        data[i - 1].text = document.getElementById("text" + i).value;
+      }
+      if (document.getElementById("value" + i + "1").value) {
+        data[i - 1].value1 = Number(
+          document.getElementById("value" + i + "1").value
+        );
+      }
+      if (document.getElementById("value" + i + "2").value) {
+        data[i - 1].value2 = Number(
+          document.getElementById("value" + i + "2").value
+        );
+      }
+      if (document.getElementById("value" + i + "3").value) {
+        data[i - 1].value3 = Number(
+          document.getElementById("value" + i + "3").value
+        );
+      }
+      if (document.getElementById("value" + i + "4").value) {
+        data[i - 1].value4 = Number(
+          document.getElementById("value" + i + "4").value
+        );
+      }
+    }
+  }
 
-			/*value 1*/
-			ctx.fillStyle = color.secondary;
-			ctx.font = '800 18px Avenir';
-			ctx.textAlign = 'center';
-			ctx.fillText(data[i].value1+'%', posX+60, posY+2+line);
+  function genText() {
+    spaceY = 10;
 
-			/* triangle */
-			var triangleColor;
-			if (data[i].value1 <= data[i].value2+2 && data[i].value1 >= data[i].value2-2){triangleColor = 'blue'}
-			else if (data[i].value1 < data[i].value2){triangleColor ='red'}
-			else{triangleColor = 'green'}
-			drawTriangle(posX+95,posY+9+spaceY, triangleColor);
+    for (var i = 0; i < data.length; i++) {
+      spaceY += 30;
+      var line = 20 + spaceY;
 
-			/* value 2*/
-			ctx.fillStyle = color.secondary;
-			ctx.font = '200 18px Avenir';
-			ctx.textAlign = 'center';
-			ctx.fillText('('+ data[i].value2 + '%)', posX+146, posY+2+line);
+      /*text */
+      ctx.fillStyle = "black";
+      ctx.font = "14px Avenir";
+      ctx.textAlign = "right";
+      ctx.fillText(data[i].text, posX, posY + line);
 
-			/*value 3*/
-			ctx.fillStyle = color.primary;
-			ctx.font = '800 18px Avenir';
-			ctx.textAlign = 'center';
-			ctx.fillText(data[i].value3+'%', posX+205, posY+2+line);
+      /*value 1*/
+      ctx.fillStyle = color.secondary;
+      ctx.font = "800 18px Avenir";
+      ctx.textAlign = "center";
+      ctx.fillText(data[i].value1 + "%", posX + 60, posY + 2 + line);
 
-			/* triangle */
-			if (data[i].value3 <= data[i].value4+2 && data[i].value3 >= data[i].value4-2){triangleColor = 'blue'}
-			else if (data[i].value3 < data[i].value4){triangleColor ='red'}
-			else{triangleColor = 'green'}
-			drawTriangle(posX+242,posY+9+spaceY, triangleColor);
+      /* triangle */
+      var triangleColor;
+      if (
+        data[i].value1 <= data[i].value2 + 2 &&
+        data[i].value1 >= data[i].value2 - 2
+      ) {
+        triangleColor = "blue";
+      } else if (data[i].value1 < data[i].value2) {
+        triangleColor = "red";
+      } else {
+        triangleColor = "green";
+      }
+      drawTriangle(posX + 95, posY + 9 + spaceY, triangleColor);
 
-			/* value 4*/
-			ctx.fillStyle = color.primary;
-			ctx.font = '200 18px Avenir';
-			ctx.textAlign = 'center';
-			ctx.fillText('('+ data[i].value4 + '%)',posX+293, posY+2+line);
-		}
-	}
+      /* value 2*/
+      ctx.fillStyle = color.secondary;
+      ctx.font = "200 18px Avenir";
+      ctx.textAlign = "center";
+      ctx.fillText("(" + data[i].value2 + "%)", posX + 146, posY + 2 + line);
 
-	function clearAll(){
-		ctx.clearRect(0, 0, c.width, c.height);
-		ctx.rect(0, 0, c.width, c.height);
-		ctx.fillStyle = 'white';
-		ctx.fill();
-	}
+      /*value 3*/
+      ctx.fillStyle = color.primary;
+      ctx.font = "800 18px Avenir";
+      ctx.textAlign = "center";
+      ctx.fillText(data[i].value3 + "%", posX + 205, posY + 2 + line);
 
-	function genCanvas(){
-		dataUpdate(),
-		fetchInputs();
-		clearAll(),
-		genLabels(),
-		genText();
-		console.log(color.primary);
-	}
+      /* triangle */
+      if (
+        data[i].value3 <= data[i].value4 + 2 &&
+        data[i].value3 >= data[i].value4 - 2
+      ) {
+        triangleColor = "blue";
+      } else if (data[i].value3 < data[i].value4) {
+        triangleColor = "red";
+      } else {
+        triangleColor = "green";
+      }
+      drawTriangle(posX + 242, posY + 9 + spaceY, triangleColor);
 
-	/** run **/
-	
-	genForm(rows);
-	document.getElementById('generateBtn').addEventListener('click', function(){
-		genCanvas();
-	});
-	genCanvas();
-})()
+      /* value 4*/
+      ctx.fillStyle = color.primary;
+      ctx.font = "200 18px Avenir";
+      ctx.textAlign = "center";
+      ctx.fillText("(" + data[i].value4 + "%)", posX + 293, posY + 2 + line);
+    }
+  }
+
+  function clearAll() {
+    ctx.clearRect(0, 0, c.width, c.height);
+    ctx.rect(0, 0, c.width, c.height);
+    ctx.fillStyle = "white";
+    ctx.fill();
+  }
+
+  function genCanvas() {
+    dataUpdate(), fetchInputs();
+    clearAll(), genLabels(), genText();
+    console.log(color.primary);
+  }
+
+  /** run **/
+
+  genForm(rows);
+  document.getElementById("generateBtn").addEventListener("click", function() {
+    genCanvas();
+  });
+  genCanvas();
+})();
