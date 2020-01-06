@@ -80,12 +80,13 @@ import { filterData } from "./data.js";
           parseInt(row["UA - Unaided Awareness"].slice(0, -1)),
           parseInt(row["ToM - Top of Mind"].slice(0, -1))
         ],
-        variations: [row["UnaidedAwarenessvAriation"], row["TopOfMindAriation"]]
+        variations: [row["UnaidedAwarenessVariation"], row["TopOfMindVariation"]]
       });
     });
 
     rows = filterData.length;
-    console.log(data);
+    console.log("data", data);
+    
   }
 
   function genForm(n) {

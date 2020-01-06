@@ -2,6 +2,7 @@
 /*eslint no-console: ["error", { allow: ["log", "error"] }] */
 
 "use strict";
+import { API_KEY } from "./apiKey.js";
 
 // getting and filter data
 
@@ -16,7 +17,7 @@ function getInput() {
 const Http = new XMLHttpRequest();
 const url =
   //"https://sheets.googleapis.com/v4/spreadsheets/1dKs-uZT8vwszpI5VY9v5oiEE4D14BPo3iiPZ2778lH4/values:batchGet?ranges=Data&majorDimension=ROWS&key=AIzaSyAGFYzX4pjmzbK8eZyMeXN8THAldIV6rtI";
-  " https://sheets.googleapis.com/v4/spreadsheets/1ZyLacbzNQbWVSobdNdrJTu88fa_i9xGO1NzMnWBl4jw/values:batchGet?ranges=Sheet1&majorDimension=ROWS&key=AIzaSyDXPBhFrqEyFJ8X4eqPvATMpTCtvwAelH4";
+  " https://sheets.googleapis.com/v4/spreadsheets/1ZyLacbzNQbWVSobdNdrJTu88fa_i9xGO1NzMnWBl4jw/values:batchGet?ranges=Sheet1&majorDimension=ROWS&key="+API_KEY;
 Http.open("GET", url);
 Http.send();
 let dataJson = [];
@@ -48,11 +49,11 @@ function modifyData() {
         e.Wave === "W0" + (row.Wave.split("")[2] - 1)
     );
     row["UnaidedAwarenessVariation"] = previousRow[0];
-    // row["TopOfMindVariation"] = previousRow[0];
-    // row["AidedAwarenessVariation"] = previousRow[0];
-    // row["ConsiderationVariation"] = previousRow[0];
-    // row["UsageVariation"] = previousRow[0];
-    // row["PreferenceVariation"] = previousRow[0];
+    row["TopOfMindVariation"] = previousRow[0];
+    row["AidedAwarenessVariation"] = previousRow[0];
+    row["ConsiderationVariation"] = previousRow[0];
+    row["UsageVariation"] = previousRow[0];
+    row["PreferenceVariation"] = previousRow[0];
 
     // console.log("row", row)
     //console.log("previousRow",previousRow[0])
