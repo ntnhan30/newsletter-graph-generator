@@ -7,7 +7,13 @@
   </head>
 
   <body>
-    <div id="wrapper">
+     <!--Add buttons to initiate auth sequence and sign out-->
+     <button id="authorize_button" style="display: none;">Authorize</button>
+     <button id="signout_button" style="display: none;">Sign Out</button>
+ 
+     <!-- <pre id="content" style="white-space: pre-wrap;"></pre> -->
+
+    <div id="contentWrapper" style="display: none;" >
       <!--global part-->
       <div id="global">
         Color scheme<br />
@@ -72,4 +78,11 @@
   <script type="module" src="js/canvas3.js"></script>
   <script type="module" src="js/data.js"></script>
   <script type="module" src="js/apiKey.js"></script>
+  <script type="text/javascript" src="js/auth.js"> </script>
+  <script async defer src="https://apis.google.com/js/api.js"
+      onload="this.onload=function(){};handleClientLoad();"
+      onreadystatechange="if (this.readyState === 'complete') this.onload()">
+    </script>
+
+  
 </html>

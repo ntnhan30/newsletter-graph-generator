@@ -2,38 +2,60 @@
 /*eslint no-console: ["error", { allow: ["log", "error"] }] */
 
 "use strict";
-import { API_KEY } from "./apiKey.js";
-
 // getting and filter data
 
-// getting input
+//global varibales
+let dataJson;
+let filterData = [];
 let inputValue = [];
+
+// getting input
+
+//fecth data from google sheet and save to dataJson with http request
+// const Http = new XMLHttpRequest();
+// const url =
+//  "  https://sheets.googleapis.com/v4/spreadsheets/1xXS6svAN6cBJQTYKi6G_GsNwWOE6g-lOEw32M8oqsLA/values:batchGet?ranges=Data&majorDimension=ROWS&key="+API_KEY;
+// Http.open("GET", url);
+// Http.send();
+// Http.onreadystatechange = e => {
+//  dataJson = JSON.parse(Http.responseText).valueRanges[0].values;
+//  console.log("onready bla bla")
+// };
+
+//fecth data from google sheet with gapi
+
+function loadData() {
+  gapi.client.sheets.spreadsheets.values
+    .get({
+      spreadsheetId: "15QfJJw6VF4MHg5NwJ6y24fRa46ECYuil0_Xaqw40P8w",
+      range: "Data!A1:CF"
+    })
+    .then(
+      function(response) {
+        dataJson = response.result.values;
+        getInput();
+        modifyData();
+      },
+      function(response) {
+        appendPre("Error: " + response.result.error.message);
+      }
+    );
+}
+
 function getInput() {
   inputValue = document.getElementById("rowsInput").value.split(",");
   // console.log(inputValue);
 }
 
-// fecth data from google sheet and save to dataJson
-const Http = new XMLHttpRequest();
-const url =
-  //"https://sheets.googleapis.com/v4/spreadsheets/1dKs-uZT8vwszpI5VY9v5oiEE4D14BPo3iiPZ2778lH4/values:batchGet?ranges=Data&majorDimension=ROWS&key=AIzaSyAGFYzX4pjmzbK8eZyMeXN8THAldIV6rtI";
-  " https://sheets.googleapis.com/v4/spreadsheets/1ZyLacbzNQbWVSobdNdrJTu88fa_i9xGO1NzMnWBl4jw/values:batchGet?ranges=Sheet1&majorDimension=ROWS&key="+API_KEY;
-Http.open("GET", url);
-Http.send();
-let dataJson = [];
-Http.onreadystatechange = e => {
-  dataJson = JSON.parse(Http.responseText).valueRanges[0].values;
-};
-let filterData = [];
-
 function modifyData() {
-  // console.log("dataJson", dataJson)
+  //console.log("dataJson from modify", dataJson)
   // modify data to an array of objects
   let rows = [];
   for (var i = 1; i < dataJson.length; i++) {
     var rowObject = {};
     for (var j = 0; j < dataJson[i].length; j++) {
-      rowObject[dataJson[0][j]] = dataJson[i][j];
+      rowObject[dataJson[1][j]] = dataJson[i][j];
+      // rowObject[dataJson[0][j]] = dataJson[i][j];
     }
     rows.push(rowObject);
   }
@@ -55,7 +77,7 @@ function modifyData() {
     row["UsageVariation"] = previousRow[0];
     row["PreferenceVariation"] = previousRow[0];
 
-    // console.log("row", row)
+    //console.log("row", row)
     //console.log("previousRow",previousRow[0])
 
     if (row.UnaidedAwarenessVariation) {
@@ -77,7 +99,7 @@ function modifyData() {
       row.PreferenceVariation =
         parseInt(previousRow[0]["BF_4 - Brand preference"].slice(0, -1)) -
         parseInt(row["BF_4 - Brand preference"].slice(0, -1));
-//top1
+      //top1
       row.PreviousTop1Reliable = parseInt(
         previousRow[0]["Top1_IDS 1 - … reliable"].slice(0, -1)
       );
@@ -129,7 +151,7 @@ function modifyData() {
       row.PreviousTop1Delivery30Mins = parseInt(
         previousRow[0]["Top1_IDS 17 - … 30 minutes delivery"].slice(0, -1)
       );
-// top3
+      // top3
       row.PreviousTop3Reliable = parseInt(
         previousRow[0]["Top3_IDS 1 - … reliable"].slice(0, -1)
       );
@@ -183,7 +205,7 @@ function modifyData() {
       );
     }
   });
-  console.log("modifiedData",modifiedData);
+  console.log("modifiedData", modifiedData);
   // filter data based on user input
   filterData = [];
   inputValue.map(value => {
@@ -194,12 +216,13 @@ function modifyData() {
     });
   });
 
-  console.log("filterData",filterData);
+  console.log("filterData", filterData);
 }
 
 document.getElementById("getDataButton").addEventListener("click", function() {
-  getInput();
-  modifyData();
+  loadData();
+  // getInput();
+  //  modifyData();
 });
 
 export { filterData };
