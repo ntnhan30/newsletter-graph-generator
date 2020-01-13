@@ -7,13 +7,11 @@
   </head>
 
   <body>
-     <!--Add buttons to initiate auth sequence and sign out-->
-     <button id="authorize_button" style="display: none;">Authorize</button>
-     <button id="signout_button" style="display: none;">Sign Out</button>
- 
-     <!-- <pre id="content" style="white-space: pre-wrap;"></pre> -->
+    <!-- buttons to initiate auth sequence and sign out-->
+    <button id="authorize_button" style="display: none;">Authorize</button>
+    <button id="signout_button" style="display: none;">Sign Out</button>
 
-    <div id="contentWrapper" style="display: none;" >
+    <div id="contentWrapper" style="display: none;">
       <!--global part-->
       <div id="global">
         Color scheme<br />
@@ -24,15 +22,13 @@
         </select>
       </div>
       <br />
-
       <!-- part 3 -->
       <br />
       <br />
+      <!-- input to get data from spreadsheet  -->
       <h3>Please enter the rows sperated by ","</h3>
-
       <input type="text" id="rowsInput" />
-
-      <button id="getDataButton">Get Data</button><br /><br />
+      <button id="getDataBtn">Get Data</button><br /><br />
 
       <div id="form3" class="form3"></div>
       <button id="generateBtn3">GENERATE</button><br /><br />
@@ -78,11 +74,11 @@
   <script type="module" src="js/canvas3.js"></script>
   <script type="module" src="js/data.js"></script>
   <script type="module" src="js/apiKey.js"></script>
-  <script type="text/javascript" src="js/auth.js"> </script>
-  <script async defer src="https://apis.google.com/js/api.js"
-      onload="this.onload=function(){};handleClientLoad();"
-      onreadystatechange="if (this.readyState === 'complete') this.onload()">
-    </script>
-
-  
+  <script type="module" src="js/auth.js"></script>
+  <script
+    async
+    defer
+    src="https://apis.google.com/js/api.js"
+    onreadystatechange="if (this.readyState === 'complete') this.onload()"
+  ></script>
 </html>

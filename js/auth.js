@@ -1,8 +1,9 @@
-//import { API_KEY, CLIENT_ID } from "./apiKey.js";
+// this file handles authentication process
 
-// Client ID and API key from the Developer Console
-//var CLIENT_ID = process.env.CLIENT_ID;
-//var API_KEY = process.env.API_KEY;
+import { API_KEY, CLIENT_ID, } from "./apiKey.js";
+
+
+onload=()=>( handleClientLoad())
 
 // Array of API discovery doc URLs for APIs used by the quickstart
 var DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"];
@@ -41,7 +42,8 @@ function initClient() {
     authorizeButton.onclick = handleAuthClick;
     signoutButton.onclick = handleSignoutClick;
   }, function(error) {
-    appendPre(JSON.stringify(error, null, 2));
+   // appendPre(JSON.stringify(error, null, 2));
+   console.log(error)
   });
 }
 
@@ -54,10 +56,10 @@ function updateSigninStatus(isSignedIn) {
     authorizeButton.style.display = 'none';
     signoutButton.style.display = 'block';
     contentWrapper.style.display = 'block';
-    loadData();
   } else {
     authorizeButton.style.display = 'block';
     signoutButton.style.display = 'none';
+    contentWrapper.style.display = 'none';
   }
 }
 
@@ -74,44 +76,3 @@ function handleAuthClick(event) {
 function handleSignoutClick(event) {
   gapi.auth2.getAuthInstance().signOut();
 }
-
-/**
- * Append a pre element to the body containing the given message
- * as its text node. Used to display the results of the API call.
- *
- * @param {string} message Text to be placed in pre element.
- */
-// function appendPre(message) {
-//   var pre = document.getElementById('content');
-//   var textContent = document.createTextNode(message + '\n');
-//   pre.appendChild(textContent);
-// }
-
-/**
- * Print the names and majors of students in a sample spreadsheet:
- * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
- */
-var data = null
-function loadData() {
-  gapi.client.sheets.spreadsheets.values.get({
-    spreadsheetId: '15QfJJw6VF4MHg5NwJ6y24fRa46ECYuil0_Xaqw40P8w',
-    range: 'Data!A2:E',
-  }).then(function(response) {
-      data = response.result.values
-    //console.log("data",data)
-    // var range = response.result;
-    // if (range.values.length > 0) {
-    //   appendPre('Name, Major:');
-    //   for (i = 0; i < range.values.length; i++) {
-    //     var row = range.values[i];
-    //     // Print columns A and E, which correspond to indices 0 and 4.
-    //     appendPre(row[0] + ', ' + row[4]);
-    //   }
-    // } else {
-    //   appendPre('No data found.');
-    // }
-  }, function(response) {
-    appendPre('Error: ' + response.result.error.message);
-  });
-}
-

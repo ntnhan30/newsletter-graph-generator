@@ -170,7 +170,6 @@ import { filterData } from "./data.js";
       }
     ];
 
-    console.log("filter Data", filterData[0]);
     console.log(" Data", data);
   }
   /********** functions ***********/

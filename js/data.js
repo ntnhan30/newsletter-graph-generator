@@ -2,6 +2,8 @@
 /*eslint no-console: ["error", { allow: ["log", "error"] }] */
 
 "use strict";
+import { SPREADSHEET_ID } from "./apiKey.js";
+
 // getting and filter data
 
 //global varibales
@@ -9,7 +11,6 @@ let dataJson;
 let filterData = [];
 let inputValue = [];
 
-// getting input
 
 //fecth data from google sheet and save to dataJson with http request
 // const Http = new XMLHttpRequest();
@@ -22,12 +23,12 @@ let inputValue = [];
 //  console.log("onready bla bla")
 // };
 
-//fecth data from google sheet with gapi
+//fecth data from google sheet with google api library
 
 function loadData() {
   gapi.client.sheets.spreadsheets.values
     .get({
-      spreadsheetId: "15QfJJw6VF4MHg5NwJ6y24fRa46ECYuil0_Xaqw40P8w",
+      spreadsheetId: SPREADSHEET_ID,
       range: "Data!A1:CF"
     })
     .then(
@@ -37,19 +38,18 @@ function loadData() {
         modifyData();
       },
       function(response) {
-        appendPre("Error: " + response.result.error.message);
+        console.log("Error: " + response.result.error.message);
       }
     );
 }
 
+// getting input
 function getInput() {
   inputValue = document.getElementById("rowsInput").value.split(",");
-  // console.log(inputValue);
 }
 
+// modify data to an array of objects
 function modifyData() {
-  //console.log("dataJson from modify", dataJson)
-  // modify data to an array of objects
   let rows = [];
   for (var i = 1; i < dataJson.length; i++) {
     var rowObject = {};
@@ -211,6 +211,7 @@ function modifyData() {
   inputValue.map(value => {
     modifiedData.map(row => {
       if (row["Row#"] === value) {
+       // if (row["Market_Wave_Brand"] === value) {
         filterData.push(row);
       }
     });
@@ -219,10 +220,8 @@ function modifyData() {
   console.log("filterData", filterData);
 }
 
-document.getElementById("getDataButton").addEventListener("click", function() {
+document.getElementById("getDataBtn").addEventListener("click", function() {
   loadData();
-  // getInput();
-  //  modifyData();
 });
 
 export { filterData };
