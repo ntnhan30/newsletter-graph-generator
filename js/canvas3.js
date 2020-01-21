@@ -83,6 +83,7 @@ import { filterData } from "./data.js";
 
   // update data array from filterData
   function dataUpdate() {
+    if(filterData[0]) {
     data = [
       {
         text: "be easy to use when placing an order",
@@ -169,9 +170,9 @@ import { filterData } from "./data.js";
         value4: filterData[0]["PreviousTop3Discounts"]=== undefined?0:filterData[0]["PreviousTop3Discounts"]
       }
     ];
-
     console.log(" Data", data);
-  }
+  } 
+ }
   /********** functions ***********/
 
   function genForm(n) {

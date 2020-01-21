@@ -72,6 +72,7 @@ import { filterData } from "./data.js";
   /* functions */
   // update data array from filterData
   function dataUpdate() {
+    if(filterData.length > 0) {
     data = [];
     filterData.map(row => {
       data.push({
@@ -93,6 +94,7 @@ import { filterData } from "./data.js";
 
     rows = filterData.length;
     console.log(data);
+  }
   }
 
   function genForm(n) {

@@ -72,21 +72,22 @@ import { filterData } from "./data.js";
   /* functions */
   // update data array from filterData
   function dataUpdate() {
-    data = [];
-    filterData.map(row => {
-      data.push({
-        brand: row.Brand,
-        values: [
-          parseInt(row["UA - Unaided Awareness"].slice(0, -1)),
-          parseInt(row["ToM - Top of Mind"].slice(0, -1))
-        ],
-        variations: [row["UnaidedAwarenessVariation"], row["TopOfMindVariation"]]
+    if(filterData.length > 0){
+      data = [];
+      filterData.map(row => {
+        data.push({
+          brand: row.Brand,
+          values: [
+            parseInt(row["UA - Unaided Awareness"].slice(0, -1)),
+            parseInt(row["ToM - Top of Mind"].slice(0, -1))
+          ],
+          variations: [row["UnaidedAwarenessVariation"], row["TopOfMindVariation"]]
+        });
       });
-    });
-
-    rows = filterData.length;
-    console.log("data", data);
-    
+  
+      rows = filterData.length;
+      console.log("data", data);   
+    }
   }
 
   function genForm(n) {
